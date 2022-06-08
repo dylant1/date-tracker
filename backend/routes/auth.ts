@@ -1,3 +1,4 @@
+require("dotenv").config();
 import { Request, Response, NextFunction } from "express";
 import { Error } from "mongoose";
 const express = require("express");
@@ -6,7 +7,6 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const db = require("../db");
 const router = express.Router();
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
-require("dotenv").config();
 
 export interface IGetUserAuthInfoRequest extends Request {
   user: string;
