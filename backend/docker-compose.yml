@@ -4,10 +4,10 @@ services:
   backend:
     build:
       context: .
-      target: base
       dockerfile: Dockerfile
     volumes:
-  
+      - .:/srv/app
+      - .:/srv/app/node_modules
     command: npm start
     expose:
       - "8080"

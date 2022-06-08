@@ -1,4 +1,3 @@
-require("dotenv").config();
 import { Request, Response, NextFunction } from "express";
 import { Error } from "mongoose";
 const express = require("express");
@@ -39,8 +38,12 @@ function checkUser(userId: string, provider: string) {
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientID:
+        process.env.GOOGLE_CLIENT_ID ||
+        "776061143871-1th2bo6vfontl3au466is4loaejr314t.apps.googleusercontent.com",
+      clientSecret:
+        process.env.GOOGLE_CLIENT_SECRET ||
+        "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",
       callbackURL: "/oauth/google/callback",
     },
     (accessToken: any, refreshToken: any, profile: any, cb: any) => {
