@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      target: production
+    command: node build/index.js
+    #The db and pg admin containers are not built for productino so edit this later
+  db:
+    container_name: pg_container
+    image: postgres
+    restart: always
+    environment:
+      # POSTGRES_USER: postgres
+      # POSTGRES_PASSWORD: VC2ZPcD4z88fan
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: postgres
+      POSTGRES_HOST: postgres
+    ports:
+      - "5432:5432"
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
