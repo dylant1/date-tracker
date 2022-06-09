@@ -4,7 +4,6 @@ const pool = new Pool({
   host: "host.docker.internal",
   user: "root",
   password: "root",
-  // database: "postgres",
   port: "5432",
 });
 
