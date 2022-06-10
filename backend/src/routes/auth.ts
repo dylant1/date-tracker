@@ -105,9 +105,9 @@ router.get(
 router.get("/isloggedin", (req: any, res: Response) => {
   // console.log(req.user);
   if (req.user) {
-    res.send(req.user);
+    res.send(true);
   } else {
-    res.send("NOT LOGGED IN");
+    res.send(false);
   }
 });
 router.get(

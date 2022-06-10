@@ -1,27 +1,23 @@
 import type { NextPage } from "next";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
+import Navbar from "./components/Navbar";
+export interface IUser {
+  [key: string]: string;
+}
+import { isLoggedIn } from "./functions/isLoggedIn";
 const Login: NextPage = () => {
-  const [name, setName] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
-    // axios.get("http://localhost:8080/isloggedin").then((res: any) => {
-    //   console.log(res.user || "Undefined res user");
-    //   // setName(res);
-    // });
-    axios
-      .get("http://localhost:8080/user", { withCredentials: true })
+    isLoggedIn()
       .then((res: any) => {
-        console.log(res.data.rows[0]);
-      });
-
-    // axios.get("http://localhost:8080/good").then((res: any) => {
-    //   console.log(res);
-    //   // setName(res);
-    // });
+        setLoggedIn(res.data);
+      })
+      .catch((err) => console.log(err));
   }, []);
   return (
     <div>
+      <Navbar />
       <button
         onClick={() => {
           window.open("http://localhost:8080/login/federated/google", "_self");
@@ -29,7 +25,9 @@ const Login: NextPage = () => {
       >
         Login With Google
       </button>
-      <div>name: </div>
+      <div>{loggedIn.toString()}</div>
+
+      {loggedIn}
     </div>
   );
 };
