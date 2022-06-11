@@ -13,12 +13,22 @@ const NavbarLink = styled.a`
   padding: 0 12px;
   margin: 0 8px;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: 15px;
   list-style: none;
   line-height: 32px;
   // text-align: left;
   text-align: center;
   cursor: pointer;
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+`;
+const NavbarLogo = styled(NavbarLink)`
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `;
 const Nav = styled.nav`
   transition: background 0.2s linear;
@@ -31,7 +41,7 @@ const Navbar: any = () => {
       <NavbarWrapper>
         <NavbarHeader>
           <Link href="/">
-            <NavbarLink>Frome</NavbarLink>
+            <NavbarLogo>Frome</NavbarLogo>
           </Link>
         </NavbarHeader>
         <Stretchy></Stretchy>
@@ -39,12 +49,12 @@ const Navbar: any = () => {
           <NavbarLink href="/login">link1</NavbarLink>
         </NavbarSubheader> */}
         <NavbarSubheader>
-          <Link href="/signin">
+          <Link href="/login">
             <NavbarLink>Sign In</NavbarLink>
           </Link>
         </NavbarSubheader>
         <NavbarSubheader>
-          <Link href="/login">
+          <Link href="/signup">
             <NavbarLink>Get Started</NavbarLink>
           </Link>
         </NavbarSubheader>

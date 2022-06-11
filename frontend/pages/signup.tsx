@@ -2,23 +2,11 @@ import type { NextPage } from "next";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
-
 export interface IUser {
   [key: string]: string;
 }
-import styled from "styled-components";
-const LoginButton = styled.div`
-  display: inline-flex;
-  color: black;
-  font-weight: 500;
-  border-radius: 30px;
-  padding: 5px 20px;
-  flex-direction: row;
-  align-items: center;
-  background-color: white;
-`;
 import { isLoggedIn } from "./functions/isLoggedIn";
-const Login: NextPage = () => {
+const Signup: NextPage = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
     isLoggedIn()
@@ -30,14 +18,13 @@ const Login: NextPage = () => {
   return (
     <div>
       <Navbar />
-
-      <LoginButton
+      <button
         onClick={() => {
           window.open("http://localhost:8080/login/federated/google", "_self");
         }}
       >
         Login With Google
-      </LoginButton>
+      </button>
       <div>{loggedIn.toString()}</div>
 
       {loggedIn}
@@ -45,4 +32,4 @@ const Login: NextPage = () => {
   );
 };
 
-export default Login;
+export default Signup;

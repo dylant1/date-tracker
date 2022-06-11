@@ -5,6 +5,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const db = require("../db");
 const router = express.Router();
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
+
 export interface IGetUserAuthInfoRequest extends Request {
   user: string;
 }
@@ -18,6 +19,7 @@ export interface IUser {
   email: string;
   password?: string;
 }
+
 const isLoggedIn = (req: any, res: any, next: any) => {
   if (req.user) {
     next();
@@ -102,6 +104,7 @@ router.get(
     scope: ["profile", "email"],
   })
 );
+
 router.get("/isloggedin", (req: any, res: Response) => {
   // console.log(req.user);
   if (req.user) {
@@ -110,6 +113,7 @@ router.get("/isloggedin", (req: any, res: Response) => {
     res.send(false);
   }
 });
+
 router.get(
   "/logout",
   function (req: IGetUserLogout, res: Response, next: NextFunction) {
@@ -117,6 +121,7 @@ router.get(
     res.redirect("/");
   }
 );
+
 router.get(
   "/oauth/google/callback",
   passport.authenticate("google", {
@@ -124,9 +129,11 @@ router.get(
     failureMessage: true,
   }),
   function (req: any, res: any) {
-    res.redirect("/good");
+    console.log(req.user.rows[0]);
+    res.redirect(`http://localhost:3000/`);
   }
 );
+
 passport.serializeUser(function (user: any, done: any) {
   done(null, user);
 });
