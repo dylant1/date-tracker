@@ -130,7 +130,7 @@ router.get(
   }),
   function (req: any, res: any) {
     console.log(req.user.rows[0]);
-    res.redirect(`http://localhost:3000/`);
+    res.redirect(`http://localhost:3000/home`);
   }
 );
 

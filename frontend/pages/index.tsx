@@ -105,7 +105,7 @@ const Home: NextPage = () => {
       {" "}
       <Navbar />
       <HeroWrapper>
-        <Header>
+        {/* <Header>
           <span>An Easy Way to Remember</span>
           <br />{" "}
           <span className="infinite-color">
@@ -119,21 +119,18 @@ const Home: NextPage = () => {
               }}
             />
           </span>
-        </Header>
+        </Header> */}
         <Subheader>A Forum of Upcoming Dates</Subheader>{" "}
-        <ButtonWrapper>
+        {/* <ButtonWrapper>
           <Link href="/signup">
             <Button>Get Started</Button>
           </Link>
-        </ButtonWrapper>
+        </ButtonWrapper> */}
       </HeroWrapper>
-      <WideWrapper>
-        {/* {displayDifference(difference)} */}
-        {/* <SmallTimeWrapper>
-          Small time here{date.toLocaleTimeString()}
-        </SmallTimeWrapper> */}
+      {/* <WideWrapper>
+
         <DescriptionWrapper>Until Christmas</DescriptionWrapper>
-      </WideWrapper>
+      </WideWrapper> */}
     </Main>
   );
 };

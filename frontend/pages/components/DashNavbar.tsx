@@ -22,10 +22,22 @@ const NavbarLink = styled.a`
   cursor: pointer;
   &:hover {
     transition: 0.5s;
-    border-color: #7bdaa1;
-    color: #7bdaa1;
+    // border-color: #7bdaa1;
+    // color: #7bdaa1;
+    opacity: 0.6;
   }
-  border: 1px solid rgba(232, 232, 244, 0.1);
+  //   border: 1px solid rgba(232, 232, 244, 0.1);
+`;
+const Add = styled.div`
+  padding: 0px 10px;
+  background-color: #32cd32;
+  font-size: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  &:hover {
+    background-color: green;
+    transition: 0.5s;
+  }
 `;
 const Login = styled.div`
   font-weight: 500;
@@ -41,6 +53,7 @@ const NavbarLogo = styled(NavbarLink)`
   &:hover {
     background-color: #121215;
     color: white;
+    opacity: 1;
   }
   outline: 0;
   border: 0;
@@ -54,7 +67,7 @@ const Nav = styled.nav`
   background: 0 0;
   display: block;
 `;
-const Navbar: any = () => {
+const DashNavbar: any = () => {
   return (
     <Nav>
       <NavbarWrapper>
@@ -69,12 +82,25 @@ const Navbar: any = () => {
         </NavbarSubheader> */}
         <NavbarSubheader>
           <Link href="/signup">
-            <NavbarLink>Sign Up</NavbarLink>
+            <NavbarLink>Explore</NavbarLink>
           </Link>
         </NavbarSubheader>
         {/* <NavbarSubheader> */}
-        <Link href="/login">
-          <Login>or log in</Login>
+        <Link href="/home/create">
+          <Add>
+            <span
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                textAlign: "center",
+                justifyContent: "center",
+                marginBottom: "5px",
+              }}
+            >
+              +
+            </span>
+          </Add>
         </Link>
         {/* </NavbarSubheader> */}
 
@@ -84,4 +110,4 @@ const Navbar: any = () => {
   );
 };
 
-export default Navbar;
+export default DashNavbar;

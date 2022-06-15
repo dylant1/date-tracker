@@ -49,5 +49,20 @@ router.get("/dates", async (req: any, res: any) => {
     console.log(err);
   }
 });
-
+router.delete("/date/:id", async (req: any, res: any) => {
+  try {
+    if (req.user) {
+      db.query("DELETE FROM dates WHERE id = $1", [parseInt(req.params.id)])
+        .then((result: any) => res.send(result))
+        .catch((err: any) => {
+          console.log(err);
+        });
+      console.log(parseInt(req.params.id));
+    } else {
+      console.log("NOT LOGGED IN");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
 module.exports = router;
