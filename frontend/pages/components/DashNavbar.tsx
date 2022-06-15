@@ -72,7 +72,7 @@ const DashNavbar: any = () => {
     <Nav>
       <NavbarWrapper>
         <NavbarHeader>
-          <Link href="/">
+          <Link href="/home">
             <NavbarLogo>Frome</NavbarLogo>
           </Link>
         </NavbarHeader>

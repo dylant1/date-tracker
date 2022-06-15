@@ -158,8 +158,8 @@ const Home: NextPage = () => {
   return (
     <div>
       <DashNavbar />
-      Home page, MAKE SURE TO ADD CREDENTIALS TO HEADER
-      <button
+      {/* Home page, MAKE SURE TO ADD CREDENTIALS TO HEADER */}
+      {/* <button
         onClick={() => {
           setFormShown(true);
         }}
@@ -198,8 +198,9 @@ const Home: NextPage = () => {
           </div>
           <input type="submit" value="Submit" />
         </form>
-      )}
+      )} */}
       <HeroWrapperSmall>
+        {posts.length === 0 && "no Dates"}
         {posts.map((post) => (
           <CardWrapper key={post.id}>
             <TimeWrapper>
