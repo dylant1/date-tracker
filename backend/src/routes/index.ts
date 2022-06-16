@@ -16,7 +16,7 @@ router.post("/create/date", (req: any, res: any) => {
   console.log(req.body);
   try {
     db.query(
-      "INSERT INTO dates (user_id, date_created, date, time, title, description, hidden) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      "INSERT INTO dates (user_id, date_created, date, time, title, description, hidden, verified) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
       [
         req.body.user_id,
         req.body.date_created,
@@ -25,6 +25,7 @@ router.post("/create/date", (req: any, res: any) => {
         req.body.title,
         req.body.description,
         req.body.hidden,
+        req.body.verified,
       ]
     );
   } catch (err) {
@@ -61,6 +62,17 @@ router.delete("/date/:id", async (req: any, res: any) => {
     } else {
       console.log("NOT LOGGED IN");
     }
+  } catch (err) {
+    console.log(err);
+  }
+});
+router.get("/dates/verified", async (req: any, res: any) => {
+  try {
+    db.query("SELECT * FROM dates WHERE verified is TRUE")
+      .then((result: any) => res.send(result))
+      .catch((err: any) => {
+        console.log(err);
+      });
   } catch (err) {
     console.log(err);
   }

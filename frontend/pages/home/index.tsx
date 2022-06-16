@@ -81,10 +81,26 @@ const Home: NextPage = () => {
   const [time, setTime] = useState("10:00");
   const [posts, setPosts] = useState<any[]>([]);
   const [deleted, setDeleted] = useState(0);
+  const [userId, setUserId] = useState(0);
   useEffect(() => {
     fetchDates();
-    console.log(posts);
+    // console.log(posts);
+    getUserId();
   }, []);
+  async function getUserId() {
+    try {
+      let response = await axios
+        .get("http://localhost:8080/user", {
+          withCredentials: true,
+        })
+        .then((res: any) => {
+          console.log(res.user.rows[0]);
+          setUserId(res.user.rows[0].id);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
   useEffect(() => {
     fetchDates();
   }, [deleted]);
@@ -138,7 +154,7 @@ const Home: NextPage = () => {
         method: "post",
         url: "http://localhost:8080/create/date",
         data: {
-          user_id: 5,
+          user_id: userId,
           date_created: new Date(),
           date: date,
           time: time,

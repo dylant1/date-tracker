@@ -53,6 +53,8 @@ const Nav = styled.nav`
   transition: background 0.2s linear;
   background: 0 0;
   display: block;
+  position: sticky;
+  top: 0;
 `;
 const Navbar: any = () => {
   return (

@@ -8,7 +8,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { intervalToDuration, differenceInCalendarDays } from "date-fns";
-
+import axios from "axios";
 import {
   Main,
   Header,
@@ -53,6 +53,16 @@ const TimeHeader = styled.div`
   margin-bottom: -10px;
   color: white;
 `;
+const HideOnScroll = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0.6;
+  margin-bottom: 150px;
+  text-align: center;
+`;
 const SubTimeHeader = styled.span`
   font-size: 30px;
   font-weight: 600;
@@ -83,16 +93,40 @@ const BigTimeWrapper = styled.div`
   }
 `;
 const DescriptionWrapper = styled.div`
-  font-size: 60px;
+  font-size: 20px;
   font-weight: 500;
+  opacity: 0.6;
 `;
-const SmallTimeWrapper = styled.div``;
-const Divider = styled.div`
-  margin-left: 15px;
-  margin-right: 15px;
+
+const CardWrapper = styled.div`
+  display: inline-flex;
+  flex-direction: row;
+  margin: 10px;
+  font-size: 15px;
+  justify-content: center;
+  border: 1px solid grey;
+  cursor: pointer;
+  &:hover {
+    border-color: white;
+    transition: 0.5s;
+  }
 `;
-const ButtonWrapper = styled.div`
-  margin-top: 40px;
+const TimeWrapper = styled.div`
+  padding: 5px 0px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  // width: 110px;
+  margin-left: 10px;
+`;
+const Down = styled.div``;
+const TitleWrapper = styled.div`
+  width: 350px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 20px;
 `;
 
 function displayDifference(difference: any) {
@@ -100,9 +134,54 @@ function displayDifference(difference: any) {
 }
 
 const Home: NextPage = () => {
+  const [posts, setPosts] = useState<any[]>([]);
+
+  useEffect(() => {
+    getVerifiedDates();
+    document.addEventListener("scroll", function (e) {
+      if (window.scrollY > 500) {
+        let scroll = document.getElementById("scroll");
+        if (scroll) {
+          scroll.classList.add("reduced-opacity");
+        }
+      }
+      
+    });
+  }, []);
+
+  const getVerifiedDates = async () => {
+    try {
+      const response = await axios
+        .get("http://localhost:8080/dates/verified")
+        .then((res: any) => {
+          console.log(res.data.rows);
+          setPosts(res.data.rows);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const renderDate = (date: any) => {
+    getDaysTill(date);
+    if (getDaysTill(date) < 0) {
+      return;
+    } else if (getDaysTill(date) <= 1) {
+      return "<1";
+    } else {
+      return Math.ceil(getDaysTill(date));
+    }
+  };
+  function getDaysTill(endDate: any) {
+    let today = new Date();
+    let end = new Date(endDate);
+    let difference = (end.getTime() - today.getTime()) / (1000 * 3600 * 24);
+    console.log(difference);
+    return difference;
+  }
   return (
     <Main>
-      {" "}
+      
       <Navbar />
       <HeroWrapper>
         {/* <Header>
@@ -120,17 +199,52 @@ const Home: NextPage = () => {
             />
           </span>
         </Header> */}
-        <Subheader>A Forum of Upcoming Dates</Subheader>{" "}
+        <Subheader>A forum of upcoming dates.</Subheader>{" "}
         {/* <ButtonWrapper>
           <Link href="/signup">
             <Button>Get Started</Button>
           </Link>
         </ButtonWrapper> */}
       </HeroWrapper>
-      {/* <WideWrapper>
-
-        <DescriptionWrapper>Until Christmas</DescriptionWrapper>
-      </WideWrapper> */}
+      <WideWrapper>
+        <HideOnScroll id="scroll">
+          <div style={{}}>Scroll Down To See Examples</div>
+          <div style={{}}>
+            <Down></Down>
+          </div>
+        </HideOnScroll>
+        <DescriptionWrapper>Popular Today</DescriptionWrapper>
+        <div>
+          {posts.length === 0 && "no Dates"}
+          {posts.map((post) => (
+            <CardWrapper key={post.id}>
+              <TimeWrapper>
+                <div>{renderDate(post.date) || "0"}</div>
+                <div>days</div>
+              </TimeWrapper>{" "}
+              <TitleWrapper>{post.title}</TitleWrapper>
+              {/* <div>{post.date}</div> */}
+              {/* {post.title} */}
+              {/* <ToolWrapper>
+                <Plus>+</Plus>
+                <Minus
+                  onClick={() => {
+                    handleDelete(post.id);
+                  }}
+                >
+                  <span
+                    style={{
+                      paddingBottom: "2px",
+                    }}
+                  >
+                    -
+                  </span>
+                </Minus>
+              </ToolWrapper> */}
+            </CardWrapper>
+          ))}
+        </div>
+      </WideWrapper>
     </Main>
   );
 };

@@ -98,3 +98,8 @@ a {
     color: pink;
   }
 }
+
+.reduced-opacity {
+  opacity: 0 !important;
+  transition: 0.5s;
+}

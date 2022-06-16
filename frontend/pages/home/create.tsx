@@ -107,6 +107,7 @@ const Create: NextPage = () => {
           title: title,
           description: description,
           hidden: "false",
+          verified: "TRUE",
         },
         headers: {
           "Content-Type": "application/json",

@@ -2,7 +2,9 @@ import styled from "styled-components";
 import Link from "next/link";
 const HeroWrapper = styled.div`
   max-width: 1180px;
-  padding: calc(50vh - 400px) 22px;
+  padding: calc(40vh) 22px;
+  padding-top: 30vh;
+  padding-bottom: 45vh;
   margin: 50px auto;
   height: auto;
   text-align: center;
@@ -13,7 +15,7 @@ const HeroWrapper = styled.div`
   }
 `;
 const Main = styled.div`
-  overflow: hidden;
+  // overflow: hidden;
   display: block;
 `;
 const Header = styled.div`
