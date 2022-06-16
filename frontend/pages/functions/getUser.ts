@@ -1,5 +1,5 @@
 import axios from "axios";
-export const getUser = async () => {
+const getUser = async () => {
   let user = await axios
     .get("http://localhost:8080/user", { withCredentials: true })
     .then((res: any) => {
@@ -11,3 +11,4 @@ export const getUser = async () => {
 
   return user;
 };
+export default getUser;
