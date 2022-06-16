@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const getDate = () => {
+export const GetDate = () => {
   const locale = "en";
   const [date, setDate] = useState(new Date()); // Save the current date to be able to trigger an update
 
