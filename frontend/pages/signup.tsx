@@ -5,7 +5,6 @@ import { HeroWrapper } from "../styles/components";
 import Navbar from "./components/Navbar";
 import styled from "styled-components";
 import GoogleLogo from "../public/assets/GoogleSVG";
-import isLoggedIn from "./functions/isLoggedIn";
 
 const Form = styled.form`
 display: flex;
@@ -83,6 +82,15 @@ const Signup: NextPage = () => {
       })
       .catch((err: any) => console.log(err));
   }, []);
+  const isLoggedIn = async () => {
+    let loggedIn = await axios
+      .get("http://localhost:8080/isLoggedIn", { withCredentials: true })
+      .then((res: any) => {
+        return res;
+      })
+      .catch((err) => console.log(err));
+    return loggedIn;
+  };
   return (
     <div>
       <Navbar />
