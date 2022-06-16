@@ -5,6 +5,7 @@ import { HeroWrapper } from "../styles/components";
 import Navbar from "./components/Navbar";
 import styled from "styled-components";
 import GoogleLogo from "../public/assets/GoogleSVG";
+import isLoggedIn from "./functions/isLoggedIn";
 
 const Form = styled.form`
 display: flex;
@@ -72,7 +73,6 @@ const Img = styled.img`
 export interface IUser {
   [key: string]: string;
 }
-import { isLoggedIn } from "./functions/isLoggedIn";
 const Signup: NextPage = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [googleColor, setGoogleColor] = useState("white");
@@ -81,7 +81,7 @@ const Signup: NextPage = () => {
       .then((res: any) => {
         setLoggedIn(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err: any) => console.log(err));
   }, []);
   return (
     <div>
@@ -115,7 +115,7 @@ const Signup: NextPage = () => {
         <Form>
           <div>
             <Input type="text" placeholder="username" />
-          </div>{" "}
+          </div>
           <div>
             <Input type="text" placeholder="email" />
           </div>
