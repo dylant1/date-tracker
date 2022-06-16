@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import DatePicker from "react-datepicker";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DashNavbar from "../components/DashNavbar";
 import axios from "axios";
 import { HeroWrapper } from "../../styles/components";
@@ -34,12 +34,7 @@ const Input = styled.input`
   font-size: 1.6rem;
   text-align: center;
 `;
-const Or = styled.div`
-  font-size: 1.4rem;
-  color: white;
-  opacity: 0.6;
-  margin-top: 20px;
-`;
+
 const TextArea = styled.textarea`
   background: none;
   outline: 0;
@@ -54,26 +49,7 @@ const TextArea = styled.textarea`
   resize: none;
   font-family: "Inter", sans-serif;
 `;
-const Button = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 300px;
-  padding: 5px 20px;
-  border-radius: 5px;
-  background: none;
-  color: white;
-  border: 1px solid #4b4b4c;
-  font-weight: 500;
-  font-size: 1.3rem;
-  &:hover {
-    border-color: #007fff;
-    color: #007fff;
-  }
-  cursor: pointer;
-`;
+
 const Submit = styled.input`
   margin-top: 25px;
   padding: 5px 20px;
@@ -83,15 +59,29 @@ const Submit = styled.input`
   cursor: pointer;
 `;
 const Create: NextPage = () => {
-  const [formShown, setFormShown] = useState(false);
   const [date, setDate] = useState<any>(null);
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
   const [time, setTime] = useState("10:00");
-  const [posts, setPosts] = useState<any[]>([]);
-  const [deleted, setDeleted] = useState(0);
-  const router = useRouter();
+  const [userId, setUserId] = useState<any>(null);
 
+  const router = useRouter();
+  useEffect(() => {
+    getUserId();
+  }, []);
+  async function getUserId() {
+    try {
+      let response = await axios
+        .get("http://localhost:8080/user", {
+          withCredentials: true,
+        })
+        .then((res: any) => {
+          setUserId(res.data.rows[0].id);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -100,21 +90,20 @@ const Create: NextPage = () => {
         method: "post",
         url: "http://localhost:8080/create/date",
         data: {
-          user_id: 5,
+          user_id: userId,
           date_created: new Date(),
           date: date,
           time: time,
           title: title,
           description: description,
           hidden: "false",
-          verified: "TRUE",
+          verified: "FALSE",
         },
         headers: {
           "Content-Type": "application/json",
         },
       });
       router.push("/home/");
-      //   fetchDates();
     } catch (error) {
       console.log(error);
     }

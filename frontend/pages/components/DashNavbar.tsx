@@ -16,17 +16,13 @@ const NavbarLink = styled.a`
   text-decoration: none;
   list-style: none;
   line-height: 32px;
-  // text-align: left;
   border-radius: 5px;
   text-align: center;
   cursor: pointer;
   &:hover {
     transition: 0.5s;
-    // border-color: #7bdaa1;
-    // color: #7bdaa1;
     opacity: 0.6;
   }
-  //   border: 1px solid rgba(232, 232, 244, 0.1);
 `;
 const Add = styled.div`
   padding: 0px 10px;
@@ -39,16 +35,7 @@ const Add = styled.div`
     transition: 0.5s;
   }
 `;
-const Login = styled.div`
-  font-weight: 500;
-  opacity: 0.6;
-  font-size: 1.2rem;
-  &:hover {
-    opacity: 1;
-    transition: 0.5s;
-    cursor: pointer;
-  }
-`;
+
 const NavbarLogo = styled(NavbarLink)`
   &:hover {
     background-color: #121215;
@@ -77,15 +64,11 @@ const DashNavbar: any = () => {
           </Link>
         </NavbarHeader>
         <Stretchy></Stretchy>
-        {/* <NavbarSubheader>
-          <NavbarLink href="/login">link1</NavbarLink>
-        </NavbarSubheader> */}
         <NavbarSubheader>
-          <Link href="/signup">
+          <Link href="/explore">
             <NavbarLink>Explore</NavbarLink>
           </Link>
         </NavbarSubheader>
-        {/* <NavbarSubheader> */}
         <Link href="/home/create">
           <Add>
             <span
@@ -102,9 +85,6 @@ const DashNavbar: any = () => {
             </span>
           </Add>
         </Link>
-        {/* </NavbarSubheader> */}
-
-        {/* <Link href="/login">login</Link> */}
       </NavbarWrapper>
     </Nav>
   );

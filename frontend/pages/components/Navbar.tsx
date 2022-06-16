@@ -16,7 +16,6 @@ const NavbarLink = styled.a`
   text-decoration: none;
   list-style: none;
   line-height: 32px;
-  // text-align: left;
   border-radius: 5px;
   text-align: center;
   cursor: pointer;
@@ -66,9 +65,6 @@ const Navbar: any = () => {
           </Link>
         </NavbarHeader>
         <Stretchy></Stretchy>
-        {/* <NavbarSubheader>
-          <NavbarLink href="/login">link1</NavbarLink>
-        </NavbarSubheader> */}
         <NavbarSubheader>
           <Link href="/signup">
             <NavbarLink>Sign Up</NavbarLink>
@@ -78,9 +74,6 @@ const Navbar: any = () => {
         <Link href="/login">
           <Login>or log in</Login>
         </Link>
-        {/* </NavbarSubheader> */}
-
-        {/* <Link href="/login">login</Link> */}
       </NavbarWrapper>
     </Nav>
   );

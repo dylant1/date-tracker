@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Link from "next/link";
 const HeroWrapper = styled.div`
   max-width: 1180px;
   padding: calc(40vh) 22px;
@@ -15,7 +14,6 @@ const HeroWrapper = styled.div`
   }
 `;
 const Main = styled.div`
-  // overflow: hidden;
   display: block;
 `;
 const Header = styled.div`
@@ -69,7 +67,6 @@ const NavbarSubheader = styled.li`
   margin-right: 8px;
   text-align: left;
   vertical-align: middle;
-  //   padding: 0 8px;
 `;
 
 const NavbarHeader = styled.li`
@@ -91,15 +88,7 @@ const Stretchy = styled.li`
   vertical-align: middle;
   display: list-item;
 `;
-// const SignIn = styled(NavbarLink)`
-//   display: inline-block;
-//   font-size: 16px;
-//   font-weight: 500;
-//   padding: 0 12px;
-//   margin: 0 8px;
-//   text-decoration: none;
-//   border-radius: 5px;
-// `;
+
 export {
   NavbarWrapper,
   HeroWrapper,

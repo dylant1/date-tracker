@@ -1,7 +1,6 @@
 import axios from "axios";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styled from "styled-components";
 import { HeroWrapper } from "../../styles/components";
@@ -26,13 +25,7 @@ const TimeWrapper = styled.div`
   // width: 110px;
   margin-left: 10px;
 `;
-const CardContainer = styled.div`
-  background-color: white;
-  display: flex;
-  max-width: 900px;
-  flex-direction: column;
-  justify-content: center;
-`;
+
 const HeroWrapperSmall = styled(HeroWrapper)`
   padding-top: 10px;
 `;
@@ -53,10 +46,7 @@ const ToolWrapper = styled.div`
   text-align: center;
   margin-right: 10px;
 `;
-const Plus = styled.div`
-  background-color: red;
-  padding: 0 5px;
-`;
+
 const Minus = styled.div`
   display: flex;
   flex-direction: row;
@@ -74,33 +64,12 @@ const Minus = styled.div`
   cursor: pointer;
 `;
 const Home: NextPage = () => {
-  const [formShown, setFormShown] = useState(false);
-  const [date, setDate] = useState(new Date());
-  const [description, setDescription] = useState("");
-  const [title, setTitle] = useState("");
-  const [time, setTime] = useState("10:00");
   const [posts, setPosts] = useState<any[]>([]);
   const [deleted, setDeleted] = useState(0);
-  const [userId, setUserId] = useState(0);
   useEffect(() => {
     fetchDates();
-    // console.log(posts);
-    getUserId();
   }, []);
-  async function getUserId() {
-    try {
-      let response = await axios
-        .get("http://localhost:8080/user", {
-          withCredentials: true,
-        })
-        .then((res: any) => {
-          console.log(res.user.rows[0]);
-          setUserId(res.user.rows[0].id);
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  }
+
   useEffect(() => {
     fetchDates();
   }, [deleted]);
@@ -108,7 +77,6 @@ const Home: NextPage = () => {
     let today = new Date();
     let end = new Date(endDate);
     let difference = (end.getTime() - today.getTime()) / (1000 * 3600 * 24);
-    console.log(difference);
     return difference;
   }
   const renderDate = (date: any) => {
@@ -126,7 +94,6 @@ const Home: NextPage = () => {
       const response = await axios
         .get("http://localhost:8080/dates", { withCredentials: true })
         .then((res: any) => {
-          console.log(res.data.rows);
           setPosts(res.data.rows);
         });
     } catch (error) {
@@ -146,75 +113,10 @@ const Home: NextPage = () => {
       console.log(error);
     }
   };
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
 
-    try {
-      const response = await axios({
-        method: "post",
-        url: "http://localhost:8080/create/date",
-        data: {
-          user_id: userId,
-          date_created: new Date(),
-          date: date,
-          time: time,
-          title: title,
-          description: description,
-          hidden: "false",
-        },
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      fetchDates();
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <div>
       <DashNavbar />
-      {/* Home page, MAKE SURE TO ADD CREDENTIALS TO HEADER */}
-      {/* <button
-        onClick={() => {
-          setFormShown(true);
-        }}
-      >
-        click to add a post
-      </button>
-      show a form here{" "}
-      {formShown && (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <DatePicker
-              selected={date}
-              onChange={(date: any) => setDate(date)}
-            />
-          </div>
-          <div>
-            <label htmlFor="title">Title</label>
-            <input
-              type="text"
-              name="title"
-              required
-              onChange={(e) => {
-                setTitle(e.target.value);
-              }}
-            />
-          </div>
-          <div>
-            <label htmlFor="desc">Description</label>
-            <input
-              type="text"
-              name="description"
-              onChange={(e) => {
-                setDescription(e.target.value);
-              }}
-            />
-          </div>
-          <input type="submit" value="Submit" />
-        </form>
-      )} */}
       <HeroWrapperSmall>
         {posts.length === 0 && "no Dates"}
         {posts.map((post) => (
@@ -224,10 +126,7 @@ const Home: NextPage = () => {
               <div>days</div>
             </TimeWrapper>{" "}
             <TitleWrapper>{post.title}</TitleWrapper>
-            {/* <div>{post.date}</div> */}
-            {/* {post.title} */}
             <ToolWrapper>
-              {/* <Plus>+</Plus> */}
               <Minus
                 onClick={() => {
                   handleDelete(post.id);

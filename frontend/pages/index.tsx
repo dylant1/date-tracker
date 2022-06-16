@@ -3,36 +3,11 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Navbar from "./components/Navbar";
-import Typewriter from "typewriter-effect";
-import Link from "next/link";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { intervalToDuration, differenceInCalendarDays } from "date-fns";
 import axios from "axios";
-import {
-  Main,
-  Header,
-  Subheader,
-  HeroWrapper,
-  NavbarWrapper,
-} from "../styles/components";
-const Button = styled.a`
-  border: none;
-  cursor: pointer;
-  color: #fff;
-  background: #ff8c22;
-  line-height: 1.5em;
-  text-decoration: none;
-  display: inline-block;
-  padding: 0.7em 1.4em;
-  font-weight: 600;
-  font-size: 18px;
-  border-radius: 7px;
-  text-align: center;
-  &:hover {
-    background: #ff7f21;
-  }
-`;
+import { Main, Subheader, HeroWrapper } from "../styles/components";
+
 const WideWrapper = styled.div`
   max-width: 1180px;
   // padding: calc(50vh - 400px) 22px;
@@ -45,14 +20,7 @@ const WideWrapper = styled.div`
     max-width: 800px;
   }
 `;
-const TimeHeader = styled.div`
-  font-weight: bold;
-  font-size: 90px;
-  margin: 0;
-  padding: 0;
-  margin-bottom: -10px;
-  color: white;
-`;
+
 const HideOnScroll = styled.div`
   display: flex;
   flex-direction: row;
@@ -63,35 +31,7 @@ const HideOnScroll = styled.div`
   margin-bottom: 150px;
   text-align: center;
 `;
-const SubTimeHeader = styled.span`
-  font-size: 30px;
-  font-weight: 600;
-  margin: 0;
-  padding: 0;
-`;
 
-const BigTimeWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  color: #a9a9a9;
-  animation: fadeInAnimation ease 6s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  @keyframes fadeInAnimation {
-    0% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-`;
 const DescriptionWrapper = styled.div`
   font-size: 20px;
   font-weight: 500;
@@ -118,7 +58,6 @@ const TimeWrapper = styled.div`
   // width: 110px;
   margin-left: 10px;
 `;
-const Down = styled.div``;
 const TitleWrapper = styled.div`
   width: 350px;
   display: flex;
@@ -128,10 +67,6 @@ const TitleWrapper = styled.div`
   text-align: center;
   font-size: 20px;
 `;
-
-function displayDifference(difference: any) {
-  return <BigTimeWrapper></BigTimeWrapper>;
-}
 
 const Home: NextPage = () => {
   const [posts, setPosts] = useState<any[]>([]);
@@ -145,7 +80,6 @@ const Home: NextPage = () => {
           scroll.classList.add("reduced-opacity");
         }
       }
-      
     });
   }, []);
 
@@ -181,37 +115,13 @@ const Home: NextPage = () => {
   }
   return (
     <Main>
-      
       <Navbar />
       <HeroWrapper>
-        {/* <Header>
-          <span>An Easy Way to Remember</span>
-          <br />{" "}
-          <span className="infinite-color">
-            <Typewriter
-              options={{
-                strings: ["Birthdays", "Events", "Holidays"],
-                autoStart: true,
-                loop: true,
-                cursor: "_",
-                deleteSpeed: 50,
-              }}
-            />
-          </span>
-        </Header> */}
         <Subheader>A forum of upcoming dates.</Subheader>{" "}
-        {/* <ButtonWrapper>
-          <Link href="/signup">
-            <Button>Get Started</Button>
-          </Link>
-        </ButtonWrapper> */}
       </HeroWrapper>
       <WideWrapper>
         <HideOnScroll id="scroll">
-          <div style={{}}>Scroll Down To See Examples</div>
-          <div style={{}}>
-            <Down></Down>
-          </div>
+          <div>Scroll Down To See Examples</div>
         </HideOnScroll>
         <DescriptionWrapper>Popular Today</DescriptionWrapper>
         <div>
@@ -223,24 +133,6 @@ const Home: NextPage = () => {
                 <div>days</div>
               </TimeWrapper>{" "}
               <TitleWrapper>{post.title}</TitleWrapper>
-              {/* <div>{post.date}</div> */}
-              {/* {post.title} */}
-              {/* <ToolWrapper>
-                <Plus>+</Plus>
-                <Minus
-                  onClick={() => {
-                    handleDelete(post.id);
-                  }}
-                >
-                  <span
-                    style={{
-                      paddingBottom: "2px",
-                    }}
-                  >
-                    -
-                  </span>
-                </Minus>
-              </ToolWrapper> */}
             </CardWrapper>
           ))}
         </div>
